@@ -1,4 +1,5 @@
 import { prisma } from "../../lib/prisma";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 
 export default async function here3(req, res) {
     const method = req.method;
@@ -32,6 +33,13 @@ export default async function here3(req, res) {
             data: student
         });
     } catch (error) {
+        if (error instanceof PrismaClientKnownRequestError && error.code === 'P2002') {
+            return res.status(409).json({
+                error: 'Student with this roll_num already exists',
+                details: error.meta?.target || 'roll_num'
+            });
+        }
+
         return res.status(500).json({
             error: "Database operation failed",
             details: error instanceof Error ? error.message : String(error)

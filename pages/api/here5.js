@@ -21,6 +21,14 @@ export default async function here5(req,res){
         return res.status(200).json({ message: "Updated student info successfully" })
     } catch (error) {
         console.error('here5 update error:', error)
+
+        if (error instanceof Error && error.code === '23505') {
+            return res.status(409).json({
+                error: 'Student with this roll_num already exists',
+                details: 'roll_num'
+            })
+        }
+
         return res.status(500).json({
             error: "Database update failed",
             details: error instanceof Error ? error.message : String(error)
