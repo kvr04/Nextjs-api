@@ -10,9 +10,13 @@ export default async function here6(req,res){
 
     const { student_id } = req.query
 
+    if (student_id === undefined || student_id === null || Number.isNaN(Number(student_id))) {
+        return res.status(400).json({ error: 'student_id query parameter is required and must be a number' })
+    }
+
     try {
         const deletequery = `delete from "Students" where student_id=$1`
-        const values = [student_id]
+        const values = [Number(student_id)]
         await pool.query(deletequery, values)
         return res.status(200).json({ message: "Student deleted" })
     } catch (error) {
