@@ -1,4 +1,4 @@
-const base = 'http://localhost:3000';
+const base = process.env.TEST_BASE || 'http://localhost:3000';
 
 async function waitForServer(retries = 30) {
   for (let i = 0; i < retries; i++) {

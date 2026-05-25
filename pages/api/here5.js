@@ -1,6 +1,7 @@
 import {pool} from '../../lib/database'
 export default async function here5(req,res){
     const method = req.method
+    res.setHeader('Cache-Control', 'no-store')
 
     if (method !== "PUT") {
         return res.status(405).json({ error: "Method not allowed" })

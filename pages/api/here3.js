@@ -2,6 +2,7 @@ import { prisma } from "../../lib/prisma";
 
 export default async function here3(req, res) {
     const method = req.method;
+    res.setHeader('Cache-Control', 'no-store');
 
     if (method !== "POST") {
         return res.status(405).json({ error: "Method not allowed" });
