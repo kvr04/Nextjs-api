@@ -1,19 +1,40 @@
-import {pool} from '../../lib/database'
-export default async function here3(req,res){
-    const method =req.method
-    const action =req.query.action
+import { prisma } from "../../lib/prisma";
 
-    if(method === "POST"){
-        const {student_name,grade,roll_num,class_teacher} =req.body
-        const insertquery = `insert into "Students" (student_name,grade,roll_num,class_teacher)
-        values($1,$2,$3,$4)
-        `            //1            2       3       4
-        const values=[student_name,grade,roll_num,class_teacher]
-        await pool.query(insertquery,values)
-        console.log("executed")
+export default async function here3(req, res) {
+    const method = req.method;
 
-        //                                 students
-        return res.status(200).json({"message":"student added sucess fully"})
+    if (method !== "POST") {
+        return res.status(405).json({ error: "Method not allowed" });
+    }
+
+    const {
+        student_name,
+        grade,
+        roll_num,
+        class_teacher,
+        sport
+    } = req.body;
+
+    try {
+        const student = await prisma.students.create({
+            data: {
+                student_name,
+                grade,
+                roll_num,
+                class_teacher,
+                sport
+            }
+        });
+
+        return res.status(200).json({
+            message: "Student added successfully",
+            data: student
+        });
+    } catch (error) {
+        return res.status(500).json({
+            error: "Database operation failed",
+            details: error instanceof Error ? error.message : String(error)
+        });
     }
 }
 //http://localhost:3000/api/here3

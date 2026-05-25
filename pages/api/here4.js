@@ -1,19 +1,20 @@
 import {pool} from '../../lib/database'
 export default async function here4(req,res){
-    const method =req.method
-    const action =req.query.action
+    const method = req.method
 
-    if(method === "GET"){
-        // const {studentid}=req.query;
-        // const selectquery=`select * from "Students" where student_id=$1`
-        // const values=[studentid]
-        // const result = await pool.query(selectquery,values)
-        // return res.status(200).json({"data":result.rows}
-        //)
-        const selectquery1=`select * from "Students"`
+    if (method !== "GET") {
+        return res.status(405).json({ error: "Method not allowed" })
+    }
+
+    try {
+        const selectquery1 = `select * from "Students"`
         const result = await pool.query(selectquery1)
-        return res.status(200).json({"data":result.rows})
-
+        return res.status(200).json({ data: result.rows })
+    } catch (error) {
+        return res.status(500).json({
+            error: "Database query failed",
+            details: error instanceof Error ? error.message : String(error)
+        })
     }
 }
 //http://localhost:3000/api/here4?studen_id=3

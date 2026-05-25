@@ -4,26 +4,18 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
 }
 
-model Students{
-  student_id Int @id @default(autoincrement())
-  student_name String
-  grade Int
-  roll_num Int @unique
+model Students {
+  student_id    Int     @id @default(autoincrement())
+  student_name  String
+  grade         Int
+  roll_num      Int     @unique
   class_teacher String?
-  sport Sports[]
-}
-
-model Sports{
-  sport_id Int @id @default(autoincrement())
-  sport_name String
-  students_id Int
-  student Students @relation(fields:[students_id],references:[student_id])
+  sport         String
 }
