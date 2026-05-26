@@ -1,0 +1,116 @@
+{
+  "info": {
+    "name": "MayNext Classes API",
+    "_postman_id": "5a7c7fdd-8ef5-4a3d-8876-3f4d2b9a7e48",
+    "description": "Postman collection for the local Next.js API routes in MayNext Classes.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Create student",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"student_name\": \"Test Student\",\n  \"grade\": 10,\n  \"roll_num\": 1234,\n  \"class_teacher\": \"Ms Test\",\n  \"sport\": \"Soccer\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/here3",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "here3"
+          ]
+        }
+      }
+    },
+    {
+      "name": "List students",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/here4",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "here4"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Update student",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"student_id\": 1,\n  \"student_name\": \"Updated Student\",\n  \"grade\": 11,\n  \"roll_num\": 1234,\n  \"class_teacher\": \"Mr Update\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/here5",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "here5"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Delete student",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "{{baseUrl}}/api/here6?student_id=1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "here6"],
+          "query": [
+            {
+              "key": "student_id",
+              "value": "1"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
